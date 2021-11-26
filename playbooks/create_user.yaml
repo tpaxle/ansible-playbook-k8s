@@ -1,0 +1,23 @@
+- name: Create New User
+  hosts: all
+  become: true
+  gather_facts: false
+  vars:
+    username: ansible-user
+    userpass: Mi71073814!
+  tasks:
+    - name: Create User
+      ansible.builtin.user:
+        name: "{{ username }}"
+        state: present
+        shell: /bin/bash
+        password: "{{ userpass | password_hash('sha512') }}"
+        update_password: on_create
+        groups: "{{ super_group }}"
+        append: yes
+
+    - name: Deploy SSH Public Key
+      ansible.posix.authorized_key:
+        user: "{{ username }}"
+        state: present
+        key: "{{ lookup('file', '/home/{{ username }}/.ssh/id_rsa.pub') }}"
