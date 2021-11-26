@@ -1,5 +1,5 @@
 - name: Permit http on masters
-  hosts: master
+  hosts: masters
   become: true
   gather_facts: false
   tasks:  
@@ -8,6 +8,8 @@
         service: http
         permanent: yes
         state: enabled
+        immediate: yes
+
 
 
 
