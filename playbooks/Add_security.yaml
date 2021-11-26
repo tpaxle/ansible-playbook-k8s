@@ -1,0 +1,14 @@
+- name: Permit http on masters
+  hosts: master
+  become: true
+  gather_facts: false
+  tasks:  
+    - name: permit traffic in default zone for https service
+      ansible.posix.firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+
+
+
+
