@@ -147,3 +147,11 @@ enable_cicd         = false
 ###############MYSQL config
 
 envs_path = "../../../../envs/"
+
+
+
+
+
+#########
+dc_name = "dc1"
+datastorage_name = "datastorage1"
