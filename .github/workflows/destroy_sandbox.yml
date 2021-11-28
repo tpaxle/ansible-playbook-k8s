@@ -16,9 +16,14 @@ env:
   AWS_ACCESS_KEY_ID:  ${{   secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY:  ${{   secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION:  ${{   secrets.AWS_DEFAULT_REGION }}
+  VSPHERE_SERVER: ${{   secrets.VSPHERE_SERVER }}
+  VSPHERE_USER: ${{   secrets.VSPHERE_USER }}
+  VSPHERE_PASSWORD: ${{   secrets.VSPHERE_PASSWORD }}
+
+
 jobs:
   init-environment:
-    runs-on: ubuntu-latest #linux-platform # linux-platform, ubuntu-latest
+    runs-on: runner-poc #linux-platform # linux-platform, ubuntu-latest
   
 
     steps:
