@@ -155,3 +155,4 @@ envs_path = "../../../../envs/"
 #########
 dc_name = "dc1"
 datastorage_name = "storage1"
+template_name =centos7-kube-1.16
