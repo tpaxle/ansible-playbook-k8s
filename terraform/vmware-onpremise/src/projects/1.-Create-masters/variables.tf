@@ -7,6 +7,11 @@ variable "dc_name" {
   description = "DC name"
   default = "dc1"
 }
+
+variable "dc_cluster_name" {
+  description = "DC name"
+  default = "cluster1"
+}
 variable "dc_template_name" {
   description = "DC name"
   default = "dc1"

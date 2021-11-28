@@ -6,6 +6,11 @@ data "vsphere_datastore" "datastore" {
   name          = var.datastorage_name
   datacenter_id = data.vsphere_datacenter.dc.id
 }
+data "vsphere_compute_cluster" "cluster" {
+  name          = var.dc_cluster_name
+  datacenter_id = "${data.vsphere_datacenter.dc.id}"
+}
+
 
 data "vsphere_resource_pool" "pool" {
   name          = "cluster1/Resources"
