@@ -137,18 +137,10 @@ module "cname_entry"{
 
 }
 
-module  "dns-vault" {
-  source  = "../../modules/m-route53-entry-cname"
-  zone_id = data.aws_route53_zone.environment_subdomain.id
-  new_name    = "${var.az_dns_vault}-${var.default_tags["Infra-Unit"]}.poc"
-
-  records = data.aws_lb.selected.dns_name
-}
-
 module  "dns-public-cname" {
   source  = "../../modules/m-route53-entry-cname"
   zone_id = data.aws_route53_zone.public.id
-  new_name    = "${var.az_dns_name}-${var.default_tags["Infra-Unit"]}.poc"
+  new_name    = "${var.az_dns_vpn}-${var.default_tags["Infra-Unit"]}.poc"
 
   records = aws_eip.one.public_dns
 }
