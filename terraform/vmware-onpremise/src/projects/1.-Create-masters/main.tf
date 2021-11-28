@@ -20,4 +20,5 @@ module "master_server_1"{
     disk_eagerly        = "${data.vsphere_virtual_machine.template.disks.0.eagerly_scrub}"
     thin_provisioned    = "${data.vsphere_virtual_machine.template.disks.0.thin_provisioned}"
 
+    default_tags	= var.default_tags
 }

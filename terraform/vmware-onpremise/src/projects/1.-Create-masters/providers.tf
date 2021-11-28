@@ -3,10 +3,6 @@
 ############
 
 
-provider "aws" {
-  region = var.region
-  #profile = "new-account"
-}
 
 provider "vsphere" {
   allow_unverified_ssl = true

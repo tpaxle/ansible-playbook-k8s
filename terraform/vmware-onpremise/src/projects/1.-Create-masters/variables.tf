@@ -36,6 +36,6 @@ variable "master_ram"{
     default = "2048"
 }
 
-variable "domian" {
+variable "domain" {
     description = "hola"
 }
