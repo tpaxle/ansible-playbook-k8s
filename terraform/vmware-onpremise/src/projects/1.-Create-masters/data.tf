@@ -3,6 +3,6 @@ data "vsphere_datacenter" "dc" {
 }
 
 data "vsphere_datastore" "datastore" {
-  name          = var.dc_name
+  name          = var.datastorage_name
   datacenter_id = data.vsphere_datacenter.dc.id
 }
