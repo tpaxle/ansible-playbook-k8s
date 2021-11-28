@@ -103,6 +103,19 @@ module "create_sv_gateway_file" {
 
   execution_count = local.enable_k8s_istio
 }
+
+module "create_kiali-values" {
+  source                 = "../utils/create-file-from-template"
+  destination_file_path  = "${path.module}/templates/kiali-rendered.values"
+  source_template        = "${path.module}/templates/kiali.values"
+  template_vars          = {
+    ENV                = var.default_tags["Infra-Unit"]
+    ROOT_PUBLIC_DOMAIN = var.root_public_domain
+  }
+
+  execution_count = local.enable_k8s_istio
+}
+
 resource "null_resource" "create_sv_gateway" {
   count = local.enable_k8s_istio
 
@@ -216,6 +229,23 @@ resource "null_resource" "delete-istio-namespace" {
     when = destroy
     command = "kubectl delete --kubeconfig ${self.triggers.kube} namespace istio-system"
   }
+}
+
+
+
+resource "helm_release" "kiali" {
+  count = local.enable_k8s_istio
+
+  name         = "${var.default_tags["_Application"]}-eks-kiali-${var.default_tags["_Environment"]}"
+  chart        = "kiali-server"
+  force_update = "true"
+  repository   = "https://kiali.org/helm-charts"
+  create_namespace  = "true"
+  namespace    = "istio-system"
+  values     = ["${path.module}/templates/ingress_kiali_rendered.yaml"]
+
+  depends_on = [    null_resource.label-default-namespace,
+    module.create_kiali-values.rendered_file]
 }
 
 

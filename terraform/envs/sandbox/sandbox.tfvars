@@ -25,6 +25,7 @@ eks_version               = "1.21"
 api_gw_domain_name = "api"
 api_sv_domain_name = "sv-api"
 az_dns_vault = "vault"
+az_dns_name = "blue1sky.me"
 
 ##############################
 ##############################

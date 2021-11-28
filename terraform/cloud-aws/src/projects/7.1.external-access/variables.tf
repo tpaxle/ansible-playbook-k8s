@@ -29,10 +29,6 @@ variable "az_dns_name" {
   description = "Dns domain zone in azure"
 }
 
-variable "az_rg_name" {
-  description = "Resource group where azure dns is"
-}
-
 variable "api_gw_domain_name" {
   description = "DNS hostname for the api <api_dns>.<rood_domain>"
 }
