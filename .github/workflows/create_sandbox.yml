@@ -18,7 +18,7 @@ env:
   AWS_DEFAULT_REGION:  ${{   secrets.platf5_hub_AWS_DEFAULT_REGION }}
 jobs:
   init-environment:
-    runs-on: ubuntu-linux #linux-platform # linux-platform, ubuntu-latest
+    runs-on: ubuntu-latest #linux-platform # linux-platform, ubuntu-latest
   
 
     steps:
