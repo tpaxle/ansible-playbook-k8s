@@ -82,3 +82,6 @@ variable "vm_firmware"{
   description = "Firemware"
   default = "efi"
 }
+variable "dns_server_list"{
+  default = ["10.0.0.101"]
+}

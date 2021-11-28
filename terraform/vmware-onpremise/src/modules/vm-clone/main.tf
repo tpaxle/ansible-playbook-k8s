@@ -26,6 +26,7 @@ resource "vsphere_virtual_machine" "vm" {
     template_uuid = var.vm_template_uuid
 
     customize {
+      dns_server_list = var.vm_dns_servers
       linux_options {
         host_name = var.vm_hostname
         domain    = var.vm_domain
