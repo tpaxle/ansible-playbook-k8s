@@ -26,7 +26,7 @@ terraform {
   }
 
   backend "s3" {
-    key = "1.vm-servers.tfstate"
+    key = "1.vm-masters.tfstate"
     acl = "bucket-owner-full-control"
   }
 }
