@@ -34,12 +34,12 @@ variable "template_name"{
 
 variable "datastorage_name" {
   description = "dtastorage name"
-  default = "datastore1"
+  default = "storage1"
 }
 
 variable "datastorage2_name" {
   description = "dtastorage name"
-  default = "datastore2"
+  default = "storage2"
 }
 
 variable "master_cpu"{
