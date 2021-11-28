@@ -11,8 +11,8 @@ module "master_server_1"{
     vm_gw               = "10.0.0.101"
 
 
-    resource_pool_id    = "${data.vsphere_compute_cluster.cluster.resource_pool_id}"
-    datacenter_id       = "${data.vsphere_datastore.datastore.id}"
+    resource_pool_id    = "${data.vsphere_compute_cluster.cluster2.resource_pool_id}"
+    datacenter_id       = "${data.vsphere_datastore.datastore2_1.id}"
     guest_id            = "${data.vsphere_virtual_machine.template.guest_id}"
     scsi_type           = "${data.vsphere_virtual_machine.template.scsi_type}"
     vm_template_uuid    = "${data.vsphere_virtual_machine.template.id}"

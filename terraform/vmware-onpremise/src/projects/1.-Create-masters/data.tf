@@ -1,4 +1,8 @@
-data "vsphere_datacenter" "dc" {
+####################################################################################
+######################################## Dc ########################################
+####################################################################################
+
+data "vsphere_datacenter" "dc1" {
   name = var.dc_name
 }
 
@@ -7,19 +11,40 @@ data "vsphere_datacenter" "dc2" {
 }
 
 
-data "vsphere_datastore" "datastore" {
+####################################################################################
+############################## Dtatastorage  #######################################
+####################################################################################
+
+data "vsphere_datastore" "datastore1_1" {
   name          = var.datastorage_name
-  datacenter_id = data.vsphere_datacenter.dc.id
+  datacenter_id = data.vsphere_datacenter.dc1.id
 }
 
-data "vsphere_datastore" "datastore2" {
+data "vsphere_datastore" "datastore1_2" {
+  name          = var.datastorage2_name
+  datacenter_id = data.vsphere_datacenter.dc1.id
+}
+
+data "vsphere_datastore" "datastore2_1" {
+  name          = var.datastorage_name
+  datacenter_id = data.vsphere_datacenter.dc2.id
+}
+
+data "vsphere_datastore" "datastore2_2" {
   name          = var.datastorage2_name
   datacenter_id = data.vsphere_datacenter.dc2.id
 }
 
-data "vsphere_compute_cluster" "cluster" {
+
+
+####################################################################################
+############################## Clusters #### #######################################
+####################################################################################
+
+
+data "vsphere_compute_cluster" "cluster1" {
   name          = var.dc_cluster_name
-  datacenter_id = "${data.vsphere_datacenter.dc.id}"
+  datacenter_id = "${data.vsphere_datacenter.dc1.id}"
 }
 
 data "vsphere_compute_cluster" "cluster2" {
@@ -32,10 +57,19 @@ data "vsphere_resource_pool" "pool" {
   datacenter_id = data.vsphere_datacenter.dc.id
 }
 
+
+####################################################################################
+############################## Metworks #### #######################################
+####################################################################################
+
 data "vsphere_network" "network" {
   name          = "VM Network"
   datacenter_id = data.vsphere_datacenter.dc.id
 }
+
+####################################################################################
+############################## Templates ###########################################
+####################################################################################
 
 
 data "vsphere_datacenter" "dc_template" {
