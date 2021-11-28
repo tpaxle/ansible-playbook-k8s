@@ -69,3 +69,11 @@ variable "vm_netmask" {
 variable "vm_gw" {
   description = "New VM vm_netmask"
 }
+
+variable "network_id" {
+  description = "New VM vm_netmask"
+}
+
+variable "adapter_type" {
+  description = "New VM vm_netmask"
+}
