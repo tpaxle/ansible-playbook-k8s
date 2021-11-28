@@ -1,4 +1,4 @@
-name: Destroy Spoke environment sandbox
+name: Destroy environment sandbox
 
 on:
   workflow_dispatch:
