@@ -1,4 +1,4 @@
-name: Destroy environment sandbox
+name: Destroy Environment
 
 on:
   workflow_dispatch:

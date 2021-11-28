@@ -1,4 +1,4 @@
-name: Create Environment
+name: CReate environment
 
 on:
   workflow_dispatch:
