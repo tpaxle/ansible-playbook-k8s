@@ -18,9 +18,9 @@ Rules:
 
 CNAME:
     ${var.api_gw_domain_name}.${var.root_public_domain} --> ${data.aws_lb.selected.dns_name}
-    demo-app.${var.default_tags["Infra-Unit"]}.${var.root_public_domain} -->${data.aws_lb.selected.dns_name}
-    istio.${var.default_tags["Infra-Unit"]}.${var.root_public_domain} -->${data.aws_lb.selected.dns_name}
-    vault.${var.default_tags["Infra-Unit"]}.${var.root_public_domain} -->${data.aws_lb.selected.dns_name}
+    demo-app-${var.default_tags["Infra-Unit"]}.${var.root_public_domain} -->${data.aws_lb.selected.dns_name}
+    istio-${var.default_tags["Infra-Unit"]}.${var.root_public_domain} -->${data.aws_lb.selected.dns_name}
+    vault-${var.default_tags["Infra-Unit"]}.${var.root_public_domain} -->${data.aws_lb.selected.dns_name}
 
 MANAGEMENT
 
