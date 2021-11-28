@@ -1,4 +1,4 @@
-module "master_server_1"{
+module "node_server_1"{
     source = "../../modules/vm-clone"
 
     vm_name             = "worker-node-1"
@@ -27,7 +27,7 @@ module "master_server_1"{
     default_tags	= var.default_tags
 }
 
-module "master_server_2"{
+module "node_server_2"{
     source = "../../modules/vm-clone"
 
     vm_name             = "worker-node-2"
@@ -40,8 +40,8 @@ module "master_server_2"{
     vm_gw               = "10.0.0.101"
 
 
-    resource_pool_id    = "${data.vsphere_compute_cluster.cluster2.resource_pool_id}"
-    datacenter_id       = "${data.vsphere_datastore.datastore2_1.id}"
+    resource_pool_id    = "${data.vsphere_compute_cluster.cluster1.resource_pool_id}"
+    datacenter_id       = "${data.vsphere_datastore.datastore1_1.id}"
     guest_id            = "${data.vsphere_virtual_machine.template.guest_id}"
     scsi_type           = "${data.vsphere_virtual_machine.template.scsi_type}"
     vm_template_uuid    = "${data.vsphere_virtual_machine.template.id}"
@@ -56,7 +56,7 @@ module "master_server_2"{
     default_tags	= var.default_tags
 }
 
-module "master_server_2"{
+module "node_server_3"{
     source = "../../modules/vm-clone"
 
     vm_name             = "worker-node-3"
@@ -69,8 +69,8 @@ module "master_server_2"{
     vm_gw               = "10.0.0.101"
 
 
-    resource_pool_id    = "${data.vsphere_compute_cluster.cluster2.resource_pool_id}"
-    datacenter_id       = "${data.vsphere_datastore.datastore2_1.id}"
+    resource_pool_id    = "${data.vsphere_compute_cluster.cluster1.resource_pool_id}"
+    datacenter_id       = "${data.vsphere_datastore.datastore1_2.id}"
     guest_id            = "${data.vsphere_virtual_machine.template.guest_id}"
     scsi_type           = "${data.vsphere_virtual_machine.template.scsi_type}"
     vm_template_uuid    = "${data.vsphere_virtual_machine.template.id}"
