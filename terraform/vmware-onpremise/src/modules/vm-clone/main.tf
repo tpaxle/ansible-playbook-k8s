@@ -9,6 +9,7 @@ resource "vsphere_virtual_machine" "vm" {
 
   scsi_type = var.scsi_type
 
+  firmware = var.vm_firmware
   network_interface {
     network_id   = var.network_id
     adapter_type = var.adapter_type

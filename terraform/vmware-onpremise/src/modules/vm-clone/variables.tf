@@ -77,3 +77,8 @@ variable "network_id" {
 variable "adapter_type" {
   description = "New VM vm_netmask"
 }
+
+variable "vm_firmware"{
+  description = "Firemware"
+  default = "efi"
+}
