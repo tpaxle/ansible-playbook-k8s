@@ -13,18 +13,16 @@ resource "vsphere_virtual_machine" "vm" {
     network_id   = "${data.vsphere_network.network.id}"
     adapter_type = "${data.vsphere_virtual_machine.template.network_interface_types[0]}"
   }
-
   disk {
     label            = "disk0"
     size             = "${data.vsphere_virtual_machine.template.disks.0.size}"
     eagerly_scrub    = "${data.vsphere_virtual_machine.template.disks.0.eagerly_scrub}"
     thin_provisioned = "${data.vsphere_virtual_machine.template.disks.0.thin_provisioned}"
   }
-
+  firmware = "${data.vsphere_virtual_machine.template.firmware}"
   clone {
     template_uuid = "${data.vsphere_virtual_machine.template.id}"
-
-    customize {
+     customize {
       linux_options {
         host_name = "terraform-test"
         domain    = "test.internal"
