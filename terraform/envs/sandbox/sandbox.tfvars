@@ -101,6 +101,8 @@ private_rt_tags_eks = {
 
 # S3
 app_config_bucket_domain_name = "config.gdev.blue4sky.local"
+cloudwatch_log_groups = []
+vault_user_arn  = "arn:aws:iam::011706625149:user/jenkins-user"
 
 #####################################
 #####################################
