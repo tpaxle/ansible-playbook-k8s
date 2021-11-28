@@ -1,0 +1,60 @@
+name: CReate environment VMware
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment_sets:
+        description: 'Terraform variable sets'
+        required: true
+        default: 'vm-sandbox'
+      action:
+        description: 'Action to deploy (ciapply, ciplan, validadte)'
+        required: true
+        default: 'ciapply'
+env:
+  INFRA_UNIT_DIR:  ${{  github.workspace }}/terraform/vmware-onpremise/src/projects/
+  AWS_ACCESS_KEY_ID:  ${{   secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY:  ${{   secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION:  ${{   secrets.AWS_DEFAULT_REGION }}
+jobs:
+  init-environment:
+    runs-on: ubuntu-latest #linux-platform # linux-platform, ubuntu-latest
+  
+
+    steps:
+    - uses: actions/checkout@v2
+
+    ###################################################
+    ###################################################
+    - name: HashiCorp - Setup Terraform
+      # You may pin to the exact commit or the version.
+      # uses: hashicorp/setup-terraform@15ba5bd056f1f2406e37023ca22c75ca08ceeb6e
+      uses: hashicorp/setup-terraform@v1.3.2
+      with:
+        terraform_version: "1.0.11"
+
+    - name: AWS cli install action
+      # You may pin to the exact commit or the version.
+      # uses: chrislennon/action-aws-cli@1347f1da2852be38fdbea5e6e336f1e297fec7a0
+      uses: chrislennon/action-aws-cli@1.1
+
+    - name: Kubectl tool installer
+      uses: Azure/setup-kubectl@v1
+
+  ###################################################
+  ###################################################
+
+    - name: Configure tf.sh
+      run: |
+        chmod +x terraform/tf.sh
+
+    - name: Install sso
+      run: |
+        cd terraform/ 
+        ./tf.sh ${{github.event.inputs.environment_sets}} 1.masters ${{github.event.inputs.action}}
+
+    - name: Install Init Dependencies
+      run: |
+        cd terraform/       
+        ./tf.sh ${{github.event.inputs.environment_sets}} 2.workers ${{github.event.inputs.action}}
+
