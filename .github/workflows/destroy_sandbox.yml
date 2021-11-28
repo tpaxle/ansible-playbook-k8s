@@ -44,42 +44,52 @@ jobs:
 
   ###################################################
   ###################################################
-    - name: Enable External access
+    - name: Uninstalling External access
       shell: bash        
       run: |
+        cd terraform
         ./tf.sh ${{github.event.inputs.environment_sets}} 7.1.external-access ${{github.event.inputs.action}}
     - name: Install EKS Security (Consul, Vault, Certmanager)
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.6.security ${{github.event.inputs.action}}
-    - name: Install EKS Istio
+    - name: Uninstalling EKS Istio
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.4.istio ${{github.event.inputs.action}}
-    - name: Install EKS Observability (prometheus, thanos,)
+    - name: Uninstalling EKS Observability (prometheus, thanos,)
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.3.observability ${{github.event.inputs.action}}
-    - name: Install EKS Services (metrics, external-dns, etc..)
+    - name: Uninstalling EKS Services (metrics, external-dns, etc..)
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.2.services ${{github.event.inputs.action}}
-    - name: Install eks
+    - name: Uninstalling eks
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.1.eks ${{github.event.inputs.action}}
 
-
-    - name: Log config
+    - name: Uninstalling Log config
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 3.2.log-shipping ${{github.event.inputs.action}}
   
-    - name: Install DNS
+    - name: Uninstalling DNS
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 3.1.dns-base-globile ${{github.event.inputs.action}}
-    - name: Install VPC
+    - name: Uninstalling VPC
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 2.vpc ${{github.event.inputs.action}}
-    - name: Install Init Dependencies
+    - name: Uninstalling Init Dependencies
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 1.init ${{github.event.inputs.action}}
-    - name: Install sso
+    - name: Uninstalling sso
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 0.sso ${{github.event.inputs.action}}
 
  
