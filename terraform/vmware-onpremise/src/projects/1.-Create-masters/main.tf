@@ -9,6 +9,7 @@ resource "vsphere_virtual_machine" "vm" {
 
   scsi_type = "${data.vsphere_virtual_machine.template.scsi_type}"
 
+<<<<<<< HEAD
   network_interface {
     network_id   = "${data.vsphere_network.network.id}"
     adapter_type = "${data.vsphere_virtual_machine.template.network_interface_types[0]}"
@@ -20,6 +21,8 @@ resource "vsphere_virtual_machine" "vm" {
     thin_provisioned = "${data.vsphere_virtual_machine.template.disks.0.thin_provisioned}"
   }
   firmware = "${data.vsphere_virtual_machine.template.firmware}"
+=======
+>>>>>>> 950b96102428006b69138042f5fb813fbb7147a9
   clone {
     template_uuid = "${data.vsphere_virtual_machine.template.id}"
      customize {
