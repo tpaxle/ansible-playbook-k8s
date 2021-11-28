@@ -11,4 +11,4 @@ spec:
         name: http
         protocol: HTTP
       hosts:
-        - api-platform.${ENV}.${ROOT_PUBLIC_DOMAIN}
+        - api-${ENV}.${ROOT_PUBLIC_DOMAIN}
