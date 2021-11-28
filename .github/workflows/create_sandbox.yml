@@ -38,9 +38,6 @@ jobs:
       # uses: chrislennon/action-aws-cli@1347f1da2852be38fdbea5e6e336f1e297fec7a0
       uses: chrislennon/action-aws-cli@1.1
 
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v1.4.3
-
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v1
 
