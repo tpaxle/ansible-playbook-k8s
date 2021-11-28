@@ -54,7 +54,7 @@ data "vsphere_compute_cluster" "cluster2" {
 
 data "vsphere_resource_pool" "pool" {
   name          = "cluster1/Resources"
-  datacenter_id = data.vsphere_datacenter.dc.id
+  datacenter_id = data.vsphere_datacenter.dc1.id
 }
 
 
@@ -62,9 +62,14 @@ data "vsphere_resource_pool" "pool" {
 ############################## Metworks #### #######################################
 ####################################################################################
 
-data "vsphere_network" "network" {
+data "vsphere_network" "network_1" {
   name          = "VM Network"
-  datacenter_id = data.vsphere_datacenter.dc.id
+  datacenter_id = data.vsphere_datacenter.dc1.id
+}
+
+data "vsphere_network" "network_2" {
+  name          = "VM Network"
+  datacenter_id = data.vsphere_datacenter.dc2.id
 }
 
 ####################################################################################
