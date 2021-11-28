@@ -25,3 +25,17 @@ variable "datastorage_name" {
   description = "dtastorage name"
   default = "datastore1"
 }
+
+variable "master_cpu"{
+    description = "cpu"
+    default = 2
+}
+
+variable "master_ram"{
+    description = "ram"
+    default = "2048"
+}
+
+variable "domian" {
+    description = "hola"
+}
