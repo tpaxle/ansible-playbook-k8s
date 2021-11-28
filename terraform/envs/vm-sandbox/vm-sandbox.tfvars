@@ -52,8 +52,9 @@ root_public_domain = "poc.blue1sky.me"
 
 
 #########
-dc_name = "dc1"
-datastorage_name = "storage1"
-template_name = "centos7-kube-1.16"
-dc_cluster_name = "cluster1"
-domain          = "lab.int"
+dc_name           = "dc1"
+dc2_name          = "dc2"
+datastorage_name  = "storage1"
+template_name     = "centos7-kube-1.16"
+dc_cluster_name   = "cluster1"
+domain            = "lab.int"

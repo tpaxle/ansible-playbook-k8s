@@ -10,7 +10,7 @@ variable "dc_name" {
 
 variable "dc2_name" {
   description = "DC name"
-  default = "dc1"
+  default = "dc2"
 }
 
 
