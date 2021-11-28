@@ -5,6 +5,7 @@
 root_account  = "909517579108"
 role_arn_fin     = "arn:aws:iam::909517579108:terraform-iac"
 root_role_arn = "arn:aws:iam::909517579108:role/terraform-iac"
+env_folder_name = "sandbox"
 
 ##############################
 ##############################
