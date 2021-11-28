@@ -1,0 +1,17 @@
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: vault-issuer
+  ##namespace: default
+  labels:
+    env: vault-certmanager-tryouts
+spec:
+  vault:
+    path: pki/sign/new-domain-dot-local
+    server: "http://vault.${ENV}.${ROOT_INFRA_DOMAIN}:8200"
+    #caBundle: <base64 encoded caBundle PEM file>
+    auth:
+      tokenSecretRef:
+          name: vault-root-token
+          key: secret-token

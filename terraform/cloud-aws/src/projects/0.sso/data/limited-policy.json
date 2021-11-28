@@ -1,0 +1,190 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "acm:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "ec2:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "execute-api:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "elasticache:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "cloudwatch:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "cloudtrail:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "cloudformation:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "rds:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "iam:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "eks:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "autoscaling:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "apigateway:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "elasticloadbalancing:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "acm-pca:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "s3:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "ses:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "route53:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "workmail:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "application-autoscaling:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "route53domains:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "servicediscovery:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "kms:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "lambda:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "ecs:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "ecr:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "elasticfilesystem:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "logs:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "cloudfront:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "sns:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "events:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "glue:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "athena:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "dynamodb:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "firehose:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "waf-regional:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "cognito-idp:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        },
+        {
+            "Action": "config:*",
+            "Effect": "Allow",
+            "Resource": "*"
+        }
+    ]
+}

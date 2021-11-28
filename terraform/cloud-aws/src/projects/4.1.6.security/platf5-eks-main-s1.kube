@@ -1,0 +1,27 @@
+apiVersion: v1
+clusters:
+- cluster:
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUM1ekNDQWMrZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeE1URXlOekUwTXpnME5sb1hEVE14TVRFeU5URTBNemcwTmxvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTHBqCk9CZG42M1VQc05MdSt4UlFLUDdkTk81TEVOVjBmdG1lR2F6d2xYRGgvbm1TQmlLbm4zWDZURWtGQURyTVhmOWcKZ1ZHS096QVlRSTQyMmpVMXQvMHdhMmFld21pNmZtUDVkOXVHWlR3Rzd2TjNHZTdYZzk3NGMwL2lob2pCbVp2Lwp1V210bTFrTlBOL1VCNmcxbjIybWg5V3MydWFhblNUQU40K1J6cHhmNnhEVUdxY2YvRC9lYVQrZit1bU9lTjAzCmdpOTlDTDh0TjVFQzNLNW84YlJDaGVjN2RTWVpFMjJzTUt6ZFBiTDNpOURLNmJPSmZINFFtd2V3LzBvbGFTKzIKaXlnM2JWMVZuWFNpbXFDSTQwSms2ZjRVeHVvMmRkMWlPejdVMXZwYXZYOVlDbGttRUVnMmhZdDlSV2w3aDcyeQpKT01SYVJZc2d3WjRFY2w3S3NVQ0F3RUFBYU5DTUVBd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0hRWURWUjBPQkJZRUZFOVR5V2xwMzBocElXT2NRV0IxdHFqdHB5NnpNQTBHQ1NxR1NJYjMKRFFFQkN3VUFBNElCQVFBNFpJMG5PQmJibStDQ3lkRWRwWURDdnZtRmcyODRORlYxQXpOTHpQWE9SWlM0N1M1TApqUkRLL0dlbU1mVU80dUd6UGE2TmZnNUcwZEhPbnV2aUVQTHR1U2VMVnRpSUtuMkg2c3lvMGZJei9XaVJEOHQwClIzc2NaZWpXbmkvQW12NUxWT1BmZW8wWU9NcXBkZThnSmZrUFl3bCtOTmVXM0w5dkhzc2tKY2hXU0puREh1STcKOTVqUUxQWUpUdFpVL3ZnVDVpYm0xNXF1Q2UyTE1yZklIMTVnbFhzN3VxNGpPYUhqMjd1ZU91bEFwd0xXaE1uMgpuUlV0SjJDTnZlZElhQWw3djFSZXJCeWhwU2JmeWl0Z1R6LzZjclpKdjBuem11ZHZNZmMybFpudExHWTAwbHlGClo2bVZ5ajMyOHRTV0l1bTM5Tm44ZUxyajVEUllsckxDWE5laQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
+    server: https://23A54E19BFC80318E772FA62B44F9725.gr7.eu-west-2.eks.amazonaws.com
+  name: arn:aws:eks:eu-west-2:909517579108:cluster/platf5-eks-main-s1
+contexts:
+- context:
+    cluster: arn:aws:eks:eu-west-2:909517579108:cluster/platf5-eks-main-s1
+    user: arn:aws:eks:eu-west-2:909517579108:cluster/platf5-eks-main-s1
+  name: arn:aws:eks:eu-west-2:909517579108:cluster/platf5-eks-main-s1
+current-context: arn:aws:eks:eu-west-2:909517579108:cluster/platf5-eks-main-s1
+kind: Config
+preferences: {}
+users:
+- name: arn:aws:eks:eu-west-2:909517579108:cluster/platf5-eks-main-s1
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      args:
+      - --region
+      - eu-west-2
+      - eks
+      - get-token
+      - --cluster-name
+      - platf5-eks-main-s1
+      command: aws

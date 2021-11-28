@@ -1,0 +1,132 @@
+###############################################################################
+##### CLOUD WATCH EVETNS ######################################################
+###############################################################################
+
+resource "aws_cloudwatch_log_group" "events" {
+  name              = "/aws/cloudtrail/${var.basenamelogs}-events"
+  retention_in_days = 60
+  #Flag to activate/deactive cloudtrail events
+  tags = merge(
+      map(
+        "Scope", "s3 evetns"
+      ),
+      var.default_tags
+    )
+}
+
+
+resource "aws_cloudtrail" "events" {
+
+  name                          = "${var.basenameclr}001"
+  s3_bucket_name                = var.s3_cloudrail_id
+  s3_key_prefix                 = "events"
+  cloud_watch_logs_group_arn    = "${aws_cloudwatch_log_group.events.arn}:*"
+  cloud_watch_logs_role_arn     = aws_iam_role.cloudtrail_log_role.arn
+  include_global_service_events = true
+  is_multi_region_trail         = true
+  enable_log_file_validation    = true
+  #Flag to activate/deactive cloudtrail events
+  count = local.count_cloudtrail
+
+  tags = merge(
+      map(
+        "Name", "${var.basenameclr}001",
+        "Scoepe", "events"
+      ),
+      var.default_tags
+    )
+}
+
+
+###############################################################################
+##### CLOUDW LOGS EVETNS ######################################################
+###############################################################################
+
+
+resource "aws_cloudwatch_log_group" "s3" {
+  name              = "/aws/cloudtrail/${var.basenamelogs}-s3"
+  retention_in_days = 30
+  #Flag to activate/deactive cloudtrail events
+  tags = merge(
+      map(
+        "Scope", "s3 logs"
+      ),
+      var.default_tags
+    )
+}
+
+resource "aws_cloudtrail" "s3" {
+  name                          = "${var.basenameclr}002"
+  s3_bucket_name                = var.s3_cloudrail_id
+  s3_key_prefix                 = "s3"
+  cloud_watch_logs_group_arn    = "${aws_cloudwatch_log_group.s3.arn}:*"
+  cloud_watch_logs_role_arn     = aws_iam_role.cloudtrail_log_role.arn
+  include_global_service_events = false
+  is_multi_region_trail         = false
+  enable_log_file_validation    = true
+  #Flag to activate/deactive cloudtrail events
+  count = local.count_cloudtrail
+  event_selector {
+    read_write_type           = "All"
+    include_management_events = false
+
+    data_resource {
+      type   = "AWS::S3::Object"
+      values = ["arn:aws:s3:::"]
+    }
+  }
+
+  tags = merge(
+      map(
+        "Name", "${var.basenameclr}002",
+        "Scoepe", "S3LOGS"
+      ),
+      var.default_tags
+    )
+}
+
+###############################################################################
+##### CLOUDW LAMDBA EVETNS ####################################################
+###############################################################################
+
+resource "aws_cloudwatch_log_group" "lambda" {
+  name              = "/aws/cloudtrail/${var.basenamelogs}-lambda"
+  retention_in_days = 30
+  #Flag to activate/deactive cloudtrail events
+  tags = merge(
+      map(
+        "Scope", "lamda"
+      ),
+      var.default_tags
+    )
+}
+
+resource "aws_cloudtrail" "lambda" {
+  name                          = "${var.basenameclr}003"
+  s3_bucket_name                = var.s3_cloudrail_id
+  s3_key_prefix                 = "lambda"
+  cloud_watch_logs_group_arn    = "${aws_cloudwatch_log_group.lambda.arn}:*"
+  cloud_watch_logs_role_arn     = aws_iam_role.cloudtrail_log_role.arn
+  include_global_service_events = false
+  is_multi_region_trail         = false
+  enable_log_file_validation    = true
+  #Flag to activate/deactive cloudtrail events
+  count = local.count_cloudtrail
+  event_selector {
+    read_write_type           = "All"
+    include_management_events = false
+
+    data_resource {
+      type   = "AWS::Lambda::Function"
+      values = ["arn:aws:lambda"]
+    }
+  }
+
+  tags = merge(
+      map(
+        "Name", "${var.basenameclr}003",
+        "Scoepe", "LAMDA"
+      ),
+      var.default_tags
+    )
+}

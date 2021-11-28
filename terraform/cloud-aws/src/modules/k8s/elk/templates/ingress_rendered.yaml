@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kibana-ingress
+  namespace: devops-ns
+  labels:
+    app: kibana-ingress
+  annotations:
+    kubernetes.io/ingress.class: istio
+spec:
+  tls:
+  - hosts:
+    - kibana.sandbox.blue4sky.local
+    secretName: wildcard-sandbox-tls
+  rules:
+  - host: kibana.sandbox.blue4sky.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kibana-kb-http
+          servicePort: 5601
+---
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  name: elasticingress-ingress
+#  namespace: devops-ns
+#  labels:
+#    app: kibana-ingress
+#  annotations:
+#    kubernetes.io/ingress.class: istio
+#spec:
+#  tls:
+#    - hosts:
+#        - elk.sandbox.blue4sky.local
+#      secretName: wildcard-sandbox-tls
+#  rules:
+#    - host: elk.sandbox.blue4sky.local
+#      http:
+#        paths:
+#          - path: /
+#            backend:
+#              serviceName: kibana-kb-http
+#              servicePort: 5601
+

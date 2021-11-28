@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-r1-tls
+  namespace: istio-system
+spec:
+  dnsNames:
+  - "*.hub.platf5.int"
+  issuerRef:
+    name: vault-issuer
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+  secretName: wildcard-r1-tls
+  commonName: "*.hub.platf5.int"
+

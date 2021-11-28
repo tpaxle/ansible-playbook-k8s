@@ -1,0 +1,1 @@
+ssh-rsa {{ var_aws_services_vpn_public_key }}

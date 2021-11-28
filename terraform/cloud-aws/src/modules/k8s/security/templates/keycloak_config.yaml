@@ -1,0 +1,81 @@
+# The number of replicas to create
+replicas: 1
+
+# Additional environment variables for Keycloak
+extraEnv: |
+  - name: KEYCLOAK_USER
+    value: ${KEYCLOAK_USER}
+  - name: KEYCLOAK_PASSWORD
+    value: ${KEYCLOAK_PASSWORD}
+
+extraVolumeMounts: |
+  - name: keycloak-creds
+    mountPath: /secrets/keycloak-creds
+    readOnly: true
+
+extraVolumes: |
+  - name: keycloak-creds
+    secret:
+      secretName: vault-root-token
+
+ingress:
+  # If `true`, an Ingress is created
+  enabled: true
+  # The Service port targeted by the Ingress
+  servicePort: 80
+  # Ingress annotations
+  annotations:
+    kubernetes.io/ingress.class: istio
+    external-dns.alpha.kubernetes.io/hostname: "${KEYCLOAK_NAME}.${ENV}.${ROOT_INFRA_DOMAIN}"
+
+  rules:
+    - host: '${KEYCLOAK_NAME}.${ENV}.${ROOT_INFRA_DOMAIN}'
+      # Paths for the host
+      paths:
+        - /.*
+  tls:
+    - hosts:
+        - ${KEYCLOAK_NAME}.${ENV}.${ROOT_INFRA_DOMAIN}
+      secretName: wildcard-${ENV}-tls
+
+
+postgresql:
+  # If `true`, the Postgresql dependency is enabled
+  enabled: true
+
+  # Persistent Volume Storage configuration
+  postgresqlUsername: ${PG_USER}
+  postgresqlPassword: ${PG_PASSWORD}
+  postgresqlDatabase: ${PG_DB}
+  ## PostgreSQL network policy configuration
+  #networkPolicy:
+  #  enabled: false
+
+serviceMonitor:
+  # If `true`, a ServiceMonitor resource for the prometheus-operator is created
+  enabled: true
+
+prometheusRule:
+  # If `true`, a PrometheusRule resource for the prometheus-operator is created
+  enabled: true
+  rules:
+    - alert: keycloak-IngressHigh5xxRate
+      annotations:
+        message: The percentage of 5xx errors for keycloak over the last 5 minutes is over 1%.
+      expr: |
+        (
+          sum(
+            rate(
+              nginx_ingress_controller_response_duration_seconds_count{exported_namespace="addons",ingress="addons-keycloak",status=~"5[0-9]{2}"}[1m]
+            )
+          )
+          /
+          sum(
+            rate(
+              nginx_ingress_controller_response_duration_seconds_count{exported_namespace="addons",ingress="addons-keycloak"}[1m]
+            )
+          )
+        ) * 100 > 1
+      for: 5m
+      labels:
+        severity: warning

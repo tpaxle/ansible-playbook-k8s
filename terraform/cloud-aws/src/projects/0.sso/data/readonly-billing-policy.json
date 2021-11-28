@@ -1,0 +1,21 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "aws-portal:ViewUsage",
+                "aws-portal:ViewBilling",
+                "aws-portal:ViewAccount",
+                "budgets:ViewBudget",
+                "cur:DescribeReportDefinitions",
+                "ce:DescribeCostCategoryDefinition",
+                "ce:ListCostCategoryDefinitions",
+                "pricing:DescribeServices",
+                "pricing:GetAttributeValues",
+                "pricing:GetProducts"
+            ],
+            "Resource": "*"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: ${NAMECERT}
+  namespace: istio-system
+spec:
+  dnsNames:
+  - "${COMMONNAME}"
+  issuerRef:
+    name: ${ISSUERNAME}
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+  secretName: ${NAMECERT}
+  commonName: "${COMMONNAME}"
