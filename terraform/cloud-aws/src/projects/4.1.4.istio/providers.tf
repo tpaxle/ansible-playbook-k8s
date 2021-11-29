@@ -29,7 +29,7 @@ terraform {
     }
   }
   backend "s3" {
-    key = "eks-istio.tfstate"    
+    key = "eks-istio2.tfstate"    
     acl = "bucket-owner-full-control"
   }
 }
