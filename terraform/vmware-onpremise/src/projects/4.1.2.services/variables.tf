@@ -16,7 +16,24 @@ variable "enable_k8s_observability" {}
 variable "region" {
   description = "The AWS region"
 }
+variable "access_key"{}
 
+variable "secret_key"{}
+
+
+variable "access_key"{}
+
+variable "secret_key"{}
+
+variable "kubernetes_helm_prometheusop_chart_version" {
+  description = "Helm  Prometheus operator chart version"
+  default     = "8.13.8"
+}
+
+variable "kubernetes_helm_prometheusop_chart_name" {
+  description = "Helm  Thanos chart version"
+  default     = "stable/prometheus-operator"
+}
 variable "bucket" {
   description = "The name of the tfstate bucket"
 }
