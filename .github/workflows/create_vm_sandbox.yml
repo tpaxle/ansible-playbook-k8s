@@ -82,3 +82,8 @@ jobs:
         cd ansible/kube-play
         ansible-playbook -t terraform site.yaml
   
+### Install kubernetes components
+    - name: Install nodes
+      run: |
+        cd terraform/ 
+        ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.2.services ${{github.event.inputs.action}}
