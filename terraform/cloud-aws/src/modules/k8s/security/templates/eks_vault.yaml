@@ -217,7 +217,7 @@ server:
     hosts:
       - host: vault.${INFRA_UNIT}.${ROOT_INFRA_DOMAIN}
         paths:
-          - /.*
+          - /
 
     tls:
       - secretName: wildcard-${ENV}-tls

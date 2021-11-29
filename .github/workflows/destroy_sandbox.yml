@@ -1,4 +1,4 @@
-name: Destroy environment sandbox
+name: Destroy Environment
 
 on:
   workflow_dispatch:
@@ -12,18 +12,18 @@ on:
         required: true
         default: 'cidestroy'
 env:
-  INFRA_UNIT_DIR:  ${{  github.workspace }}/devops-iacaws-terraform-lib/src/projects/platform-public
-  AWS_ACCESS_KEY_ID:  ${{   secrets.platf5_hub_AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY:  ${{   secrets.platf5_hub_AWS_SECRET_ACCESS_KEY }}
-  AWS_DEFAULT_REGION:  ${{   secrets.platf5_hub_AWS_DEFAULT_REGION }}
-  GIT_ASKPASS: ${{ github.workspace }}/.git.askpass.sh
-  SSH_KEY: ${{ secrets.SSH_KEY }}
-  GITHUB_USERNAME: CommonGlobilePlatform
-  GITHUB_PASSWORD: 2acaf7fd2275b264ac86b9c97dc1294c6f88c242
+  INFRA_UNIT_DIR:  ${{  github.workspace }}/terraform/cloud-aws/src/projects/
+  AWS_ACCESS_KEY_ID:  ${{   secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY:  ${{   secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_DEFAULT_REGION:  ${{   secrets.AWS_DEFAULT_REGION }}
+  VSPHERE_SERVER: ${{   secrets.VSPHERE_SERVER }}
+  VSPHERE_USER: ${{   secrets.VSPHERE_USER }}
+  VSPHERE_PASSWORD: ${{   secrets.VSPHERE_PASSWORD }}
+
+
 jobs:
   init-environment:
-    needs: [ SERVICES, EKS ]
-    runs-on: linux-platform # linux-platform, ubuntu-latest
+    runs-on: ubuntu-latest #linux-platform # linux-platform, ubuntu-latest
   
 
     steps:
@@ -34,7 +34,7 @@ jobs:
     - name: HashiCorp - Setup Terraform
       # You may pin to the exact commit or the version.
       # uses: hashicorp/setup-terraform@15ba5bd056f1f2406e37023ca22c75ca08ceeb6e
-      uses: hashicorp/setup-terraform@v1.2.0
+      uses: hashicorp/setup-terraform@v1.3.2
       with:
         terraform_version: "1.0.11"
 
@@ -43,158 +43,65 @@ jobs:
       # uses: chrislennon/action-aws-cli@1347f1da2852be38fdbea5e6e336f1e297fec7a0
       uses: chrislennon/action-aws-cli@1.1
 
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v1.4.3
-
     - name: Kubectl tool installer
       uses: Azure/setup-kubectl@v1
 
+
   ###################################################
   ###################################################
-
-    - name: "Init submodule"
+    - name: Uninstalling External access
+      shell: bash        
       run: |
-        git submodule update --init
-
-    - name: submodules-init
-      # You may pin to the exact commit or the version.
-      # uses: snickerbockers/submodules-init@74927a8bb0fe1bb0f1f1e4d102384a8e69f19171
-      uses: snickerbockers/submodules-init@v4
-
-    - name: Log config
+        cd terraform
+        ./tf.sh ${{github.event.inputs.environment_sets}} 7.1.external-access ${{github.event.inputs.action}}
+    - name: Install EKS Security (Consul, Vault, Certmanager)
       run: |
+        cd terraform      
+        ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.6.security ${{github.event.inputs.action}}
+    - name: Uninstalling EKS Istio
+      run: |
+        cd terraform      
+        #./tf.sh ${{github.event.inputs.environment_sets}} 4.1.4.istio ${{github.event.inputs.action}}
+    - name: Uninstalling EKS Observability (prometheus, thanos,)
+      run: |
+        cd terraform      
+        ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.3.observability ${{github.event.inputs.action}}
+    - name: Uninstalling EKS Services (metrics, external-dns, etc..)
+      run: |
+        cd terraform      
+        ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.2.services ${{github.event.inputs.action}}
+    - name: Uninstalling eks
+      run: |
+        cd terraform      
+        ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.1.eks ${{github.event.inputs.action}}
+
+
+    - name: Uninstalling Log config
+      run: |
+        cd terraform      
+        ./tf.sh ${{github.event.inputs.environment_sets}} 3.4.management ${{github.event.inputs.action}}
+  
+    - name: Uninstalling Log config
+      run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 3.2.log-shipping ${{github.event.inputs.action}}
   
-    - name: Install DNS
+    - name: Uninstalling DNS
       run: |
-        ./tf.sh ${{github.event.inputs.environment_sets}} 3.1.dns-base-globile ${{github.event.inputs.action}}
-    - name: Install VPC
+        cd terraform      
+        ./tf.sh ${{github.event.inputs.environment_sets}} 3.1.dns-base ${{github.event.inputs.action}}
+    - name: Uninstalling VPC
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 2.vpc ${{github.event.inputs.action}}
-    - name: Install Init Dependencies
+    - name: Uninstalling Init Dependencies
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 1.init ${{github.event.inputs.action}}
-    - name: Install sso
+    - name: Uninstalling sso
       run: |
+        cd terraform      
         ./tf.sh ${{github.event.inputs.environment_sets}} 0.sso ${{github.event.inputs.action}}
 
-  EKS:
-    runs-on: linux-platform
-
-    steps:
-      - uses: actions/checkout@v1
-
-      ###################################################
-      ###################################################
-      - name: HashiCorp - Setup Terraform
-        # You may pin to the exact commit or the version.
-        # uses: hashicorp/setup-terraform@15ba5bd056f1f2406e37023ca22c75ca08ceeb6e
-        uses: hashicorp/setup-terraform@v1.2.0
-        with:
-          terraform_version: "0.12.28"
-
-      - name: AWS cli install action
-        # You may pin to the exact commit or the version.
-        # uses: chrislennon/action-aws-cli@1347f1da2852be38fdbea5e6e336f1e297fec7a0
-        uses: chrislennon/action-aws-cli@1.1
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v1.4.3
-
-      - name: Kubectl tool installer
-        uses: Azure/setup-kubectl@v1
-
-      ###################################################
-      ###################################################
-
-      - name: Configure tf.sh 
-        run: |
-          chmod +x tf.sh
-
-      - name: "Set up GitHub access"
-        run: |
-          echo '#!/bin/sh
-            case "$1" in
-              Username*) echo ${GITHUB_USERNAME} ;;
-              Password*) echo ${GITHUB_PASSWORD} ;;
-            esac' > ${GIT_ASKPASS}
-          chmod +x ${GIT_ASKPASS}
-
-      - name: "Init submodule"
-        run: |
-          git submodule update --init
-
-      - name: Enable External access
-        shell: bash        
-        run: |
-          ./tf.sh ${{github.event.inputs.environment_sets}} 7.1.external-access ${{github.event.inputs.action}}
-      - name: Install EKS Security (Consul, Vault, Certmanager)
-        run: |
-          ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.6.security ${{github.event.inputs.action}}
-      - name: Install EKS Istio
-        run: |
-          ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.4.istio ${{github.event.inputs.action}}
-      - name: Install EKS Observability (prometheus, thanos,)
-        run: |
-          ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.3.observability ${{github.event.inputs.action}}
-      - name: Install EKS Services (metrics, external-dns, etc..)
-        run: |
-          ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.2.services ${{github.event.inputs.action}}
-      - name: Install eks
-        run: |
-          ./tf.sh ${{github.event.inputs.environment_sets}} 4.1.1.eks ${{github.event.inputs.action}}
-
-
-  SERVICES:
-    runs-on: linux-platform
-
-    steps:
-      - uses: actions/checkout@v1
-      ###################################################
-      ###################################################
-      - name: HashiCorp - Setup Terraform
-        # You may pin to the exact commit or the version.
-        # uses: hashicorp/setup-terraform@15ba5bd056f1f2406e37023ca22c75ca08ceeb6e
-        uses: hashicorp/setup-terraform@v1.2.0
-        with:
-          terraform_version: "0.12.28"
-
-      - name: AWS cli install action
-        # You may pin to the exact commit or the version.
-        # uses: chrislennon/action-aws-cli@1347f1da2852be38fdbea5e6e336f1e297fec7a0
-        uses: chrislennon/action-aws-cli@1.1
-
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v1.4.3
-
-      - name: Kubectl tool installer
-        uses: Azure/setup-kubectl@v1
-
-      ###################################################
-      ###################################################
-
-      - name: Configure tf.sh 
-        run: |
-          chmod +x tf.sh
-      - name: Checkout submodules
-        # You may pin to the exact commit or the version.
-        # uses: textbook/git-checkout-submodule-action@0cb23c7e6a67085e1dc5e884920bd620f7b9c469
-        uses: textbook/git-checkout-submodule-action@2.1.1
-
-
-  
-      - name: Install Kafka Server
-        shell: bash        
-        run: |
-          ./tf.sh ${{github.event.inputs.environment_sets}} 4.3.g-kafka ${{github.event.inputs.action}}
-    
-    
-      - name: Install SQL Servers
-        run: |
-          ./tf.sh ${{github.event.inputs.environment_sets}} 4.2.2.g-rds ${{github.event.inputs.action}}
-    
-    
-      - name: Install Redis
-        run: |
-          ./tf.sh ${{github.event.inputs.environment_sets}} 4.2.1.redis-cache ${{github.event.inputs.action}}
-    
+ 
+ 

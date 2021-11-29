@@ -137,3 +137,11 @@ module "cname_entry"{
 
 }
 
+module  "dns-public-cname" {
+  source  = "../../modules/m-route53-entry-cname"
+  zone_id = data.aws_route53_zone.public.id
+  new_name    = "${var.az_dns_vpn}-${var.default_tags["Infra-Unit"]}.poc"
+
+  records = aws_eip.one.public_dns
+}
+

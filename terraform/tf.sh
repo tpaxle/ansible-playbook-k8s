@@ -167,7 +167,7 @@ init(){
     unset_aws_perms
   fi
   echo "cd $INFRA_UNIT_DIR/$INFRA_UNIT && TF_PLUGIN_CACHE_DIR=$TF_PLUGIN_CACHE_DIR TF_DATA_DIR=$TF_DATA_DIR terraform init -backend-config=$CONFIG_DIR/$ENV/backend-$ENV.tfvars >> ${INFRA_UNIT_DIR}/${INFRA_UNIT}/terraform_init.log"
-  cd $INFRA_UNIT_DIR/$INFRA_UNIT && TF_PLUGIN_CACHE_DIR=$TF_PLUGIN_CACHE_DIR TF_DATA_DIR=$TF_DATA_DIR terraform init -backend-config=$CONFIG_DIR/$ENV/backend-$ENV.tfvars  >> ${INFRA_UNIT_DIR}/${INFRA_UNIT}/terraform_init.log
+  cd $INFRA_UNIT_DIR/$INFRA_UNIT && TF_PLUGIN_CACHE_DIR=$TF_PLUGIN_CACHE_DIR TF_DATA_DIR=$TF_DATA_DIR terraform init -backend-config=$CONFIG_DIR/$ENV/backend-$ENV.tfvars 
 }
 check_object_list(){
   [[ -z $FAST ]] && init

@@ -103,6 +103,7 @@ module "create_sv_gateway_file" {
 
   execution_count = local.enable_k8s_istio
 }
+
 resource "null_resource" "create_sv_gateway" {
   count = local.enable_k8s_istio
 
@@ -118,33 +119,6 @@ resource "null_resource" "create_sv_gateway" {
   ]
 }
 
-module "create_ingress_kiali" {
-  source                 = "../utils/create-file-from-template"
-  destination_file_path  = "${path.module}/templates/ingress_kiali_rendered.yaml"
-  source_template        = "${path.module}/templates/ingress_kiali.yaml"
-  template_vars          = {
-    INFRA-UNIT                = var.default_tags["Infra-Unit"]
-    ENV               = var.default_tags["_Environment"]
-    ROOT_INFRA_DOMAIN = var.root_infra_domain
-  }
-
-  execution_count = local.enable_k8s_istio
-}
-
-resource "null_resource" "kubectl_create_ingress_kiali" {
-  count = local.enable_k8s_istio
-
-  # ...
-  provisioner "local-exec" {
-    #when    = "destroy"
-
-    command = "kubectl --kubeconfig ${var.default_tags["_Application"]}-eks-main-${var.default_tags["_Environment"]}.kube apply -f ${path.module}/templates/ingress_kiali_rendered.yaml"
-  }
-  depends_on = [
-    null_resource.label-default-namespace,
-    module.create_ingress_kiali.rendered_file
-  ]
-}
 
 #
 #
@@ -219,14 +193,17 @@ resource "null_resource" "delete-istio-namespace" {
 }
 
 
-//resource "kubernetes_namespace" "addons" {
-//  metadata {
-//    annotations = {
-//      name = "addons"
-//    }
-//    #labels = {
-//    #  istio-injection = "enabled"
-//    #}
-//    name = "addons"
-//  }
-//}
+
+resource "helm_release" "kiali" {
+  count = local.enable_k8s_istio
+
+  name         = "${var.default_tags["_Application"]}-eks-kiali-${var.default_tags["_Environment"]}"
+  chart        = "kiali-server"
+  force_update = "true"
+  repository   = "https://kiali.org/helm-charts"
+  create_namespace  = "true"
+  namespace    = "istio-system"
+  values     = [data.template_file.helm_kiali[0].rendered]
+
+  depends_on = [    null_resource.label-default-namespace]
+}

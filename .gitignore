@@ -9,7 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-
+*.kube
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -371,6 +371,7 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+.terraform.lock.hcl
 
 # Include override files you do wish to add to version control using negated pattern
 #
