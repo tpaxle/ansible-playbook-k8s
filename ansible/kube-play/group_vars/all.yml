@@ -2,7 +2,7 @@
 # ansible_user: root
 
 # Kubernetes
-kube_version: v1.22.3
+kube_version: v1.21.7
 token: b0f7b8.8d1767876297d85c
 
 ansible_ssh_user: root
