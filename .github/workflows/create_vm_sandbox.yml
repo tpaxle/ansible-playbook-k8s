@@ -49,6 +49,7 @@ jobs:
 
     - name: Configure tf.sh
       run: |
+        asdf --version
         terraform version
         chmod +x terraform/tf.sh
 
