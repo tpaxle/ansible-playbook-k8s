@@ -89,3 +89,4 @@ enable_k8s_security = false
 enable_k8s_keycloak = true
 enable_k8s_elk      = true
 enable_cicd         = false
+enable_k8s_observability = true

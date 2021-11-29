@@ -11,6 +11,7 @@ variable "root_infra_domain" {
   description = "Infrastructure root domain"
 }
 
+variable "enable_k8s_observability" {}
 
 variable "region" {
   description = "The AWS region"
