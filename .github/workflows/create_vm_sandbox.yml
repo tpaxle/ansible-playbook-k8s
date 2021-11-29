@@ -70,7 +70,7 @@ jobs:
     - name: Playbook Add Security
       run: |
         cd ansible
-        ansible-playbook playbooks/Add_security.yaml.yaml -i inventories/inventory.ini 
+        ansible-playbook playbooks/Add_security.yaml.-i inventories/inventory.ini 
     - name: Install Cluster
       run: |
         cd ansible/kube-play
