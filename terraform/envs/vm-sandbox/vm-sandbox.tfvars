@@ -78,3 +78,14 @@ dc_template_name  = "dc2"
 template_name     = "template_centos7"
 dc_cluster_name   = "cluster1"
 domain            = "lab.int"
+
+##############################
+##############################
+#### MODULES  ################
+##############################
+vault_enable_public = true
+enable_k8s_istio    = true
+enable_k8s_security = false
+enable_k8s_keycloak = true
+enable_k8s_elk      = true
+enable_cicd         = false
