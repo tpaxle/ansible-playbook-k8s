@@ -23,7 +23,7 @@ env:
 
 jobs:
   init-environment:
-    runs-on: runner-poc #linux-platform # linux-platform, ubuntu-latest
+    runs-on: ubuntu-latest #linux-platform # linux-platform, ubuntu-latest
   
 
     steps:
