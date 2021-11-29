@@ -1,4 +1,4 @@
-name: Destroy environment VMware
+name: CReate environment VMware
 
 on:
   workflow_dispatch:
@@ -10,19 +10,15 @@ on:
       action:
         description: 'Action to deploy (ciapply, ciplan, validadte)'
         required: true
-        default: 'cidestroy'
+        default: 'ciapply'
 env:
   INFRA_UNIT_DIR:  ${{  github.workspace }}/terraform/vmware-onpremise/src/projects/
   AWS_ACCESS_KEY_ID:  ${{   secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY:  ${{   secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION:  ${{   secrets.AWS_DEFAULT_REGION }}
-  VSPHERE_SERVER: ${{   secrets.VSPHERE_SERVER }}
-  VSPHERE_USER: ${{   secrets.VSPHERE_USER }}
-  VSPHERE_PASSWORD: ${{   secrets.VSPHERE_PASSWORD }}
-
 jobs:
   init-environment:
-    runs-on: runner-poc #linux-platform # linux-platform, ubuntu-latest
+    runs-on: ubuntu-latest #linux-platform # linux-platform, ubuntu-latest
   
 
     steps:
@@ -52,12 +48,12 @@ jobs:
       run: |
         chmod +x terraform/tf.sh
 
-    - name: Install sso
+    - name: Uninstall master
       run: |
         cd terraform/ 
         ./tf.sh ${{github.event.inputs.environment_sets}} 1.masters ${{github.event.inputs.action}}
 
-    - name: Install Init Dependencies
+    - name: Uninstall nodes
       run: |
         cd terraform/       
         ./tf.sh ${{github.event.inputs.environment_sets}} 2.workers ${{github.event.inputs.action}}
