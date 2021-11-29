@@ -21,7 +21,7 @@
 - name: "Copy config file"
   fetch:
     src: /etc/kubernetes/admin.conf 
-    dest: "/tmp/admin.conf"
+    dest: "{{ lookup('env', 'HOME') }}/admin.conf"
     flat: yes
   run_once: yes
   ignore_errors: yes

@@ -52,5 +52,3 @@
         name: terraform
       run_once: yes
       tags: terraform 
-
-
