@@ -48,7 +48,6 @@ resource "helm_release" "stable-thanos" {
   namespace    = "monitoring"
   values     = [data.template_file.helm_thanos[0].rendered]
 
-  depends_on = [var.observability_depends_on]
 }
 
 
