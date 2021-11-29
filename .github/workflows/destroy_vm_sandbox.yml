@@ -1,4 +1,4 @@
-name: CReate environment VMware
+name: Uninstall environment VMware
 
 on:
   workflow_dispatch:
@@ -46,6 +46,8 @@ jobs:
 
     - name: Configure tf.sh
       run: |
+        terraform version
+        aws version
         chmod +x terraform/tf.sh
 
     - name: Uninstall master
