@@ -19,3 +19,15 @@ external_services:
 
 auth:
   strategy: "anonymous"
+
+server:
+  web_fqdn: kiali.sandbox.blue4sky.local
+deployment:
+  ingress:
+    enabled: true
+    class_name: false
+    override_yaml:
+      metadata: 
+          annotations:
+            kubernetes.io/ingress.class: istio
+
