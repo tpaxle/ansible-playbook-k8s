@@ -1,4 +1,4 @@
-name: CReate environment VMware
+name: Create environment VMware
 
 on:
   workflow_dispatch:
@@ -12,17 +12,16 @@ on:
         required: true
         default: 'ciapply'
 env:
-  INFRA_UNIT_DIR:  ${{  github.workspace }}/terraform/vmware-onpremise/src/projects/
-  AWS_ACCESS_KEY_ID:  ${{   secrets.AWS_ACCESS_KEY_ID }}
+  INFRA_UNIT_DIR:         ${{  github.workspace }}/terraform/vmware-onpremise/src/projects/
+  AWS_ACCESS_KEY_ID:      ${{   secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY:  ${{   secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_DEFAULT_REGION:  ${{   secrets.AWS_DEFAULT_REGION }}
-
+  AWS_DEFAULT_REGION:     ${{   secrets.AWS_DEFAULT_REGION }}
   VSPHERE_USER:       ${{ secrets.VSPHERE_USER }}
-  VSPHERE_SERVER:     ${{ secrets.VSPHERE_SERVER }}
-  VSPHERE_PASSWORD:   ${{ secrets.VSPHERE_PASSWORD }}  
+  VSPHERE_SERVER:     "10.0.0.102"
+  VSPHERE_PASSWORD:   ${{ secrets.VSPHERE_PASSWORD }}
 jobs:
   init-environment:
-    runs-on: runner-poc #linux-platform # linux-platform, ubuntu-latest
+    runs-on: runner-poc  #linux-platform # linux-platform, ubuntu-latest
   
 
     steps:
@@ -50,15 +49,35 @@ jobs:
 
     - name: Configure tf.sh
       run: |
+        terraform version
         chmod +x terraform/tf.sh
 
-    - name: Install sso
-      run: |
-        cd terraform/ 
-        ./tf.sh ${{github.event.inputs.environment_sets}} 1.masters ${{github.event.inputs.action}}
-
-    - name: Install Init Dependencies
+    - name: Install Masters
       run: |
         cd terraform/       
-        ./tf.sh ${{github.event.inputs.environment_sets}} 2.workers ${{github.event.inputs.action}}
+        ./tf.sh ${{github.event.inputs.environment_sets}} 1.masters ${{github.event.inputs.action}}
 
+    - name: Install nodes
+      run: |
+        cd terraform/ 
+        ./tf.sh ${{github.event.inputs.environment_sets}} 2.nodes ${{github.event.inputs.action}}
+
+##### Configure cluster
+    - name: Playbook generate users
+      run: |
+        cd ansible
+        ansible-playbook playbooks/create_user.yaml -i inventories/inventory.ini 
+    - name: Playbook Add Security
+      run: |
+        cd ansible
+        ansible-playbook playbooks/Add_security.yaml.yaml -i inventories/inventory.ini 
+    - name: Install Cluster
+      run: |
+        cd ansible/kube-play
+        ansible-playbook site.yaml
+  
+    - name: Getting admin.conf
+      run: |
+        cd ansible/kube-play
+        ansible-playbook -t terraform site.yaml
+  

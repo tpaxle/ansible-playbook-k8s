@@ -61,8 +61,3 @@ jobs:
       run: |
         cd terraform/       
         ./tf.sh ${{github.event.inputs.environment_sets}} 1.masters ${{github.event.inputs.action}}
-
-
-    - name: Checking ansible
-      run: |
-        ansible --version
