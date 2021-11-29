@@ -57,8 +57,12 @@ jobs:
         cd terraform/ 
         ./tf.sh ${{github.event.inputs.environment_sets}} 2.nodes ${{github.event.inputs.action}}
 
-    - name: Uninstall nodes
+    - name: Uninstall Masters
       run: |
         cd terraform/       
         ./tf.sh ${{github.event.inputs.environment_sets}} 1.masters ${{github.event.inputs.action}}
 
+
+    - name: Checking ansible
+      run: |
+        ansible --version
