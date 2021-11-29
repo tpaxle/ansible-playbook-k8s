@@ -1,0 +1,8 @@
+---
+- name: "Copy config file"
+  fetch:
+    src: /etc/kubernetes/admin.conf 
+    dest: "../../terraform/envs/admin.conf"
+    flat: yes
+  ignore_errors: yes
+  tags: terraform
