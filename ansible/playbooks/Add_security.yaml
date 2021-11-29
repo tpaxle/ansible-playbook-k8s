@@ -1,5 +1,5 @@
 - name: Permit http on masters
-  hosts: masters
+  hosts: all
   become: true
   gather_facts: false
   tasks:  
@@ -10,7 +10,51 @@
         state: enabled
         immediate: yes
 
+    - name: permit traffic
+      ansible.posix.firewalld:
+        port: "6443/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
+
+    - name: permit traffic
+      ansible.posix.firewalld:
+        port: "10250/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
+
+    - name: permit traffic
+      ansible.posix.firewalld:
+        port: "10248/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
 
 
+    - name: permit traffic
+      ansible.posix.firewalld:
+        port: "10251/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
+ 
+    - name: permit traffic
+      ansible.posix.firewalld:
+        port: "10252/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
 
-
+    - name: permit traffic
+      ansible.posix.firewalld:
+        port: "10255/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes
+    - name: permit traffic
+      ansible.posix.firewalld:
+        port: "8472/tcp"
+        permanent: yes
+        state: enabled
+        immediate: yes

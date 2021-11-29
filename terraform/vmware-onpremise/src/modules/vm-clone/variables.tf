@@ -80,7 +80,7 @@ variable "adapter_type" {
 
 variable "vm_firmware"{
   description = "Firemware"
-  default = "efi"
+  default = "bios"
 }
 variable "vm_dns_servers"{
   default = ["10.0.0.101"]
