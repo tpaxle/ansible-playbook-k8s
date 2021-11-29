@@ -10,14 +10,14 @@ on:
       action:
         description: 'Action to deploy (ciapply, ciplan, validadte)'
         required: true
-        default: 'ciapply'
+        default: 'cidestroy'
 env:
   INFRA_UNIT_DIR:         ${{  github.workspace }}/terraform/vmware-onpremise/src/projects/
   AWS_ACCESS_KEY_ID:      ${{   secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY:  ${{   secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_DEFAULT_REGION:     ${{   secrets.AWS_DEFAULT_REGION }}
   VSPHERE_USER:       ${{ secrets.VSPHERE_USER }}
-  VSPHERE_SERVER:     ${{ secrets.VSPHERE_SERVER }}
+  VSPHERE_SERVER:     "10.0.0.102"
   VSPHERE_PASSWORD:   ${{ secrets.VSPHERE_PASSWORD }}
 jobs:
   init-environment:
