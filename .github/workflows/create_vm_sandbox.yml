@@ -83,7 +83,7 @@ jobs:
         ansible-playbook -t terraform site.yaml
   
 ### Install kubernetes components
-    - name: Install K8s Services
-      run: |
-        cd terraform/ 
-        ./tf.sh ${{github.event.inputs.environment_sets}} 3.services ${{github.event.inputs.action}}
+#    - name: Install K8s Services
+#      run: |
+#        cd terraform/ 
+#        ./tf.sh ${{github.event.inputs.environment_sets}} 3.services ${{github.event.inputs.action}}
