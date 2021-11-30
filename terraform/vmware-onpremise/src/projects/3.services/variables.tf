@@ -20,11 +20,6 @@ variable "access_key"{}
 
 variable "secret_key"{}
 
-
-variable "access_key"{}
-
-variable "secret_key"{}
-
 variable "kubernetes_helm_prometheusop_chart_version" {
   description = "Helm  Prometheus operator chart version"
   default     = "8.13.8"
