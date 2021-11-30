@@ -1,0 +1,14 @@
+---
+- name: "Create tmp directory"
+  file:
+    path: "{{ tmp_dir }}"
+    state: directory
+    mode: 0755
+  tags: metallb
+
+- name: "Create haproxyconfig"
+  template:
+    src: haproxy.cfg.j2
+    dest: "{{ tmp_dir }}/haproxy.cfg.j2"
+  tags: metallb
+

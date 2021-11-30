@@ -43,3 +43,12 @@
       run_once: yes
       tags: healthcheck
 
+- hosts: master
+  gather_facts: yes
+  become: yes
+  tasks:
+    - name: "Configs"
+      include_role:
+        name: terraform
+      run_once: yes
+      tags: terraform 

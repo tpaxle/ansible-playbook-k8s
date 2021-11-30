@@ -1,0 +1,15 @@
+- name: Configure haproxy
+  hosts: localhost
+  become: true
+  gather_facts: false
+  vars:
+    username: ansible-user
+    userpass: Mi71073814!
+  tasks:
+    - hosts: localhost
+      gather_facts: yes
+      become: yes
+      tasks:
+        - name: "Configure haproxy"
+          include_role:
+            name: config

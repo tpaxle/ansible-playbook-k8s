@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: kiali-s1-ingress
+  namespace: istio-system
+  labels:
+    app: eks-kiali-s1
+  annotations:
+    kubernetes.io/ingress.class: istio
+spec:
+  tls:
+  - hosts:
+    - kiali.sandbox.blue4sky.local
+    secretName: wildcard-s1-tls
+  rules:
+  - host: kiali.sandbox.blue4sky.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kiali
+          servicePort: 20001
+

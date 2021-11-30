@@ -1,0 +1,33 @@
+
+installation_tag: "VMware POC -- Kiali"
+
+istio_namespace: "istio-system" # default is where Kiali is installed
+
+external_services:
+  custom_dashboards:
+    enabled: true
+  istio:
+    root_namespace: ""
+  prometheus:
+      url: http://prometheus.sandbox.blue4sky.local
+  grafana:
+    enabled: true
+    # Grafana service name is "grafana" and is in the "telemetry" namespace.
+    in_cluster_url: 'http://platf5-eks-prometheusops-s1-grafana.monitoring'
+    # Public facing URL of Grafana
+    url: 'http://grafana.sandbox.blue4sky.local'
+
+auth:
+  strategy: "anonymous"
+
+server:
+  web_fqdn: kiali.sandbox.blue4sky.local
+deployment:
+  ingress:
+    enabled: true
+    class_name: false
+    override_yaml:
+      metadata: 
+          annotations:
+            kubernetes.io/ingress.class: istio
+

@@ -49,6 +49,25 @@ default_tags = {
 }
 root_infra_domain  = "blue4sky.local"
 root_public_domain = "poc.blue1sky.me"
+#####################################
+#####################################
+########### EKS CONFIG ##############
+#####################################
+kubernetes_helm_dashboard_chart_name         = "kubernetes-dashboard"
+kubernetes_helm_dashboard_chart_version      = "5.0.4"
+kubernetes_helm_ingress_chart_name           = "nginx-ingress"
+kubernetes_helm_ingress_chart_version        = "1.36.3"
+kubernetes_helm_kube-sm_chart_name           = "kube-state-metrics"
+kubernetes_helm_kube-sm_chart_version        = "4.0.2"
+kubernetes_helm_metrics-server_chart_name    = "metrics-server"
+kubernetes_helm_metrics-server_chart_version = "5.10.10"
+kubernetes_helm_externaldns_chart_name       = "external-dns"
+kubernetes_helm_externaldns_chart_version    = "5.5.0"
+kubernetes_helm_prometheusop_chart_name      = "kube-prometheus-stack"
+kubernetes_helm_prometheusop_chart_version   = "21.0.0"
+kubernetes_helm_vault_chart_version          = "0.18.0"
+eks_monitoring_worker_instance_type          = "t3.medium"
+istio_version = "1.12.0"
 
 
 #########
@@ -59,3 +78,15 @@ dc_template_name  = "dc2"
 template_name     = "template_centos7"
 dc_cluster_name   = "cluster1"
 domain            = "lab.int"
+
+##############################
+##############################
+#### MODULES  ################
+##############################
+vault_enable_public = true
+enable_k8s_istio    = true
+enable_k8s_security = false
+enable_k8s_keycloak = true
+enable_k8s_elk      = true
+enable_cicd         = false
+enable_k8s_observability = true

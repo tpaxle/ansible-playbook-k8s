@@ -1,0 +1,74 @@
+name: CI main
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  PROJECT_NAME: "api-flask-1"
+  AWS_ACCESS_KEY_ID:  ${{   secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY:  ${{   secrets.AWS_SECRET_ACCESS_KEY }}
+  PROXY_ENABLE: true
+  PRERELEASE: ${{ secrets.PRERELEASE }}
+jobs:
+  ci_feature:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: "Checkout Origin"
+      uses: actions/checkout@v2
+
+    - uses: chrisdickinson/setup-yq@latest
+      with:
+        yq-version: 2.4.1
+        yq-url: https://github.com/mikefarah/yq/releases/download/{version}/yq_{platform}_amd64
+
+
+    - name: Add SHORT_SHA env property with commit short sha
+      run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+
+
+    - name: Checking new version based commits
+      id: tag_version
+      uses: mathieudutour/github-tag-action@v5.1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        release_branches: main
+        dry_run: true
+        append_to_pre_release_tag: ${{ env.SHORT_SHA }}
+
+
+
+    - name: Add & Commit
+      uses: EndBug/add-and-commit@v7.0.0
+      with:
+        message: "RELEASE-Autoupgrade new chart version ${{steps.tag_version.outputs.new_version}}"
+
+    - name: "Get build info"
+      id: build_info
+      shell: bash
+      run: |
+    
+        python -m venv .changelog
+        source .changelog/bin/activate
+        pip install -e "git+https://${{ secrets.ACTIONS_TOKEN }}@github.com/tpaxle/python-app-changelog.git#egg=changelog"
+
+        release_body=`changelog ${GITHUB_REPOSITORY} -t ${{ github.token }} -sr v${{steps.tag_version.outputs.previous_tag}} -b main`
+        release_body="${release_body//'%'/%25}"
+        release_body="${release_body//$'\n'/%0A}"
+        release_body="${release_body//$'\r'/%0D}"
+        echo "##[set-output name=release_body;]$(echo ${release_body})"
+        deactivate
+
+    - name: "Create release"
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.ACTIONS_TOKEN }}
+      with:
+        tag_name: ${{steps.tag_version.outputs.new_tag}}
+        release_name: Release ${{steps.tag_version.outputs.new_tag}}
+        body: |
+          ${{steps.build_info.outputs.release_body}}
+        draft: false
+        prerelease: false
