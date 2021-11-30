@@ -1,5 +1,4 @@
-# Kubernetes as a code
-= Kubernetes as a code
+= Test -Kubernetes as a code
 :authors: VMWARE ESE TEAM
 :doctype: book
 :toc: center
@@ -9,7 +8,7 @@
 :source-highlighter: rouge
 :rouge-style: monokai
 :jarvis-version: 1.0
-:imagesdir: ./docs/png/
+:imagesdir: ./docs/png
 :title-logo-image: {imagesdir}/vmware-logo.png
 
 == Introduction
