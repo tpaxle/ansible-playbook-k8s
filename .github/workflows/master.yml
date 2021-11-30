@@ -94,7 +94,7 @@ jobs:
         bundle exec asciidoctor-pdf README.adoc -a pdf-theme=first.yml -a pdf-stylesdir=docs/themes/
       
     - name: Create zip file
-      run: zip -r GLOBAL-GHE-RUNNER-TEMPLATES.zip README.pdf
+      run: zip -r ansible-playbook-k8s.zip README.pdf
 
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1.0.2
@@ -102,6 +102,6 @@ jobs:
         GITHUB_TOKEN: ${{ GITHUB.token }}
       with:
         upload_url: ${{ needs.build.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: GLOBAL-GHE-RUNNER-TEMPLATES.zip
-        asset_name: GLOBAL-GHE-RUNNER-TEMPLATES.zip
+        asset_path: ansible-playbook-k8s.zip
+        asset_name: ansible-playbook-k8s.zip
         asset_content_type: application/zip
