@@ -21,9 +21,7 @@ resource "helm_release" "cert-manager" {
     value = "true"
   }
   #values     = [data.template_file.helm_certmanager.rendered]
-  depends_on = [helm_release.metric-metrics]
 }
-
 
 resource "helm_release" "stable-thanos" {
   count = local.count_k8s_observability
