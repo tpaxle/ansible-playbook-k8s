@@ -32,7 +32,7 @@ resource "helm_release" "cert-manager" {
     value = "true"
   }
   #values     = [data.template_file.helm_certmanager.rendered]
-  #depends_on = [helm_release.stable-consul]
+  depends_on = [helm_release.metric-metrics]
 }
 
 
@@ -47,7 +47,7 @@ resource "helm_release" "stable-thanos" {
   create_namespace  = "true"
   namespace    = "monitoring"
   values     = [data.template_file.helm_thanos[0].rendered]
-
+  depends_on = [helm_release.cert-manager]
 }
 
 
