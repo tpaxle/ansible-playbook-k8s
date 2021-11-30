@@ -7,17 +7,6 @@
 #### 4. K8S state-metrics
 #### 5. K8S metric server
 
-resource "helm_release" "metric-metrics" {
-  name      = "metrics-server"
-  chart     = var.kubernetes_helm_metrics-server_chart_name
-  version   = var.kubernetes_helm_metrics-server_chart_version
-  repository = "https://charts.bitnami.com/bitnami"
-  namespace = "kube-system"
-}
-
-######################################################################################################################################################
-######################CERT MANAGER##################################################################################################
-######################################################################################################################################################
 
 resource "helm_release" "cert-manager" {
   name              = "${var.default_tags["_Application"]}-eks-certmanager-${var.default_tags["_Environment"]}"
