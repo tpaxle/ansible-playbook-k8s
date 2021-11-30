@@ -26,5 +26,5 @@ variable "root_public_domain" {
 
 variable "enable_k8s_istio" {
   description = "Enable istio module installation"
-  default = false
+  default = true
 }
