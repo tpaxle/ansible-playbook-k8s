@@ -1,6 +1,6 @@
 # Platform terraform AWS
 = GLOBAL - HeraWebhookChecker Terraform Project
-:authors: ALM PLATFORM Team
+:authors: VMWARE ESE TEAM
 :doctype: book
 :toc: center
 :toclevels: 4
@@ -10,7 +10,7 @@
 :rouge-style: monokai
 :jarvis-version: 1.0
 :imagesdir: ./docs/images
-:title-logo-image: {imagesdir}/almmc.png
+:title-logo-image: {imagesdir}/vmware.svg
 
 == Introduction
 
